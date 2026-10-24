@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nrityarang | Admin Panel</title>
+  <link rel="stylesheet" href="admin.css">
+</head>
+<body>
+  <main class="app">
+
+    <!-- LOGIN PAGE -->
+    <section id="loginPage" class="login-page">
+      <div class="login-card">
+        <div class="brand-icon">न</div>
+        <p class="eyebrow">NRITYARANG</p>
+        <h1>Welcome back</h1>
+        <p class="muted">Sign in to manage your event bookings.</p>
+
+        <form id="loginForm">
+          <label for="email">Admin email</label>
+          <input
+            id="email"
+            type="email"
+            placeholder="Enter admin email"
+            autocomplete="username"
+            required
+          >
+
+          <label for="password">Password</label>
+          <input
+            id="password"
+            type="password"
+            placeholder="Enter your password"
+            autocomplete="current-password"
+            required
+          >
+
+          <button id="loginButton" type="submit">Sign in</button>
+          <p id="loginMessage" class="message" role="status"></p>
+        </form>
+
+        <p class="security-note">
+          <span>🔒</span> Secure administrator access
+        </p>
+      </div>
+    </section>
+
+    <!-- DASHBOARD: hidden until backend authentication succeeds -->
+    <section id="dashboardPage" class="dashboard-page" hidden>
+      <aside class="sidebar">
+        <div class="sidebar-brand">
+          <span class="brand-icon small">न</span>
+          <div>
+            <strong>Nrityarang</strong>
+            <small>Event Management</small>
+          </div>
+        </div>
+
+        <p class="nav-heading">WORKSPACE</p>
+        <button class="nav-item active" data-section="overview">
+          <span>▦</span> Overview
+        </button>
+        <button class="nav-item" data-section="bookings">
+          <span>▤</span> Bookings
+        </button>
+        <button class="nav-item" data-section="seats">
+          <span>▦</span> Seat management
+        </button>
+
+        <div class="sidebar-bottom">
+          <p class="muted">Signed in as administrator</p>
+          <button id="logoutButton" class="logout-button">↪ Log out</button>
+        </div>
+      </aside>
+
+      <div class="main-content">
+        <header class="topbar">
+          <div>
+            <p class="eyebrow">EVENT ADMINISTRATION</p>
+            <h1 id="pageTitle">Dashboard overview</h1>
+          </div>
+          <span class="admin-badge">Admin</span>
+        </header>
+
+        <div id="dashboardMessage" class="notice" role="status">
+          Loading dashboard information…
+        </div>
+
+        <section id="overviewSection">
+          <div class="welcome-row">
+            <div>
+              <h2>Event overview</h2>
+              <p class="muted">A summary of your event booking activity.</p>
+            </div>
+            <button id="refreshButton" class="secondary-button">
+              ↻ Refresh data
+            </button>
+          </div>
+
+          <div class="stats-grid">
+            <article class="stat-card">
+              <p>Total bookings</p>
+              <h2 id="totalBookings">—</h2>
+              <small>Confirmed booking records</small>
+            </article>
+            <article class="stat-card">
+              <p>Seats booked</p>
+              <h2 id="totalSeats">—</h2>
+              <small>From existing booking data</small>
+            </article>
+            <article class="stat-card">
+              <p>Available seats</p>
+              <h2 id="availableSeats">—</h2>
+              <small>Based on current seat status</small>
+            </article>
+            <article class="stat-card">
+              <p>Blocked seats</p>
+              <h2 id="blockedSeats">—</h2>
+              <small>Seats unavailable for booking</small>
+            </article>
+            <article class="stat-card revenue-card">
+              <p>Verified revenue</p>
+              <h2 id="totalRevenue">—</h2>
+              <small>Based on verified payment records</small>
+            </article>
+          </div>
+
+          <section class="panel">
+            <div class="panel-heading">
+              <div>
+                <h2>Recent bookings</h2>
+                <p class="muted">Latest records from your booking system</p>
+              </div>
+              <button class="text-button" data-section="bookings">
+                View all
+              </button>
+            </div>
+
+            <div class="table-wrapper">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Booking ID</th>
+                    <th>Customer</th>
+                    <th>Seats</th>
+                    <th>Amount</th>
+                    <th>Payment</th>
+                  </tr>
+                </thead>
+                <tbody id="recentBookings">
+                  <tr>
+                    <td colspan="5" class="empty-state">
+                      Waiting for backend connection.
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </section>
+        </section>
+
+        <section id="bookingsSection" hidden>
+          <section class="panel">
+            <div class="panel-heading">
+              <div>
+                <h2>All bookings</h2>
+                <p class="muted">Customer and ticket information</p>
+              </div>
+              <button id="bookingsRefresh" class="secondary-button">
+                Refresh
+              </button>
+            </div>
+            <div class="table-wrapper">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Booking ID</th>
+                    <th>Customer</th>
+                    <th>Email / Phone</th>
+                    <th>Seats</th>
+                    <th>Amount</th>
+                    <th>Payment</th>
+                    <th>Date / Time</th>
+                  </tr>
+                </thead>
+                <tbody id="allBookings">
+                  <tr>
+                    <td colspan="7" class="empty-state">
+                      Booking data will appear after API integration.
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </section>
+        </section>
+
+        <section id="seatsSection" hidden>
+          <section class="panel">
+            <div class="panel-heading">
+              <div>
+                <h2>Seat management</h2>
+                <p class="muted">Existing event seat status</p>
+              </div>
+              <button id="seatsRefresh" class="secondary-button">
+                Refresh
+              </button>
+            </div>
+
+            <div class="seat-legend">
+              <span><i class="dot available"></i> Available</span>
+              <span><i class="dot booked"></i> Booked</span>
+              <span><i class="dot blocked"></i> Blocked</span>
+            </div>
+
+            <div id="seatGrid" class="seat-grid">
+              Seat information will appear after API integration.
+            </div>
+            <p class="muted seat-note">
+              Seat blocking controls will be enabled after the existing
+              backend's rules and seat-hold logic are inspected.
+            </p>
+          </section>
+        </section>
+
+        <footer>Nrityarang Event Booking · Admin Console</footer>
+      </div>
+    </section>
+  </main>
+
+  <script src="admin.js"></script>
+</body>
+</html>
