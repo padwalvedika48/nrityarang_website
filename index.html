@@ -65,7 +65,13 @@
           <span>▤</span> Bookings
         </button>
         <button class="nav-item" data-section="seats">
-          <span>▦</span> Seat management
+          <span>🪑</span> Seat management
+        </button>
+        <button class="nav-item" data-section="event">
+          <span>📅</span> Event Details
+        </button>
+        <button class="nav-item" data-section="enquiries">
+          <span>🎓</span> Student Enquiries
         </button>
 
         <div class="sidebar-bottom">
@@ -87,37 +93,71 @@
           Loading dashboard information…
         </div>
 
+        <!-- 1. OVERVIEW SECTION -->
         <section id="overviewSection">
           <div class="welcome-row">
             <div>
               <h2>Event overview</h2>
               <p class="muted">A summary of your event booking activity.</p>
             </div>
-            <button id="refreshButton" class="secondary-button">
-              ↻ Refresh data
-            </button>
+            <div style="display: flex; gap: 10px; align-items: center; flex-wrap: wrap;">
+              <button id="refreshButton" class="secondary-button">
+                ↻ Refresh data
+              </button>
+              <button id="clearAllBookingsOverviewBtn" style="background-color: #dc3545; color: white; border: none; padding: 9px 16px; border-radius: 6px; cursor: pointer; font-weight: 600; font-size: 13px; display: inline-flex; align-items: center; gap: 6px;">
+                🗑️ Clear All Bookings
+              </button>
+            </div>
           </div>
 
+          <!-- ACTIVE PERFORMANCE SUMMARY WIDGET -->
+          <div style="display: flex; justify-content: space-between; align-items: center; background: #faf8fd; border: 1px solid #ebdff5; border-radius: 10px; padding: 14px 20px; margin-bottom: 20px; flex-wrap: wrap; gap: 14px;">
+            <div>
+              <div style="display: flex; align-items: center; gap: 10px;">
+                <span style="font-size: 11px; text-transform: uppercase; font-weight: 700; letter-spacing: 0.5px; color: var(--purple-dark);">📅 ACTIVE PERFORMANCE SCHEDULE</span>
+                <span id="overviewBookingBadge" style="font-size: 11px; font-weight: 700; padding: 3px 9px; border-radius: 12px; background: #eafaf1; color: #1e7e34; border: 1px solid #c3e6cb;">
+                  🟢 Seats: OPEN
+                </span>
+              </div>
+              <h3 style="margin: 4px 0 2px; font-size: 16px; color: #222;" id="overviewEventDisplay">Nrityarang 2026 · September,6 2026, 7pm</h3>
+              <small class="muted" id="overviewVenueDisplay">Prabodhankar Thackeray auditorium, Borivali(west), Mumbai</small>
+            </div>
+            <div style="display: flex; gap: 8px; align-items: center; flex-wrap: wrap;">
+              <button id="overviewToggleBookingBtn" class="secondary-button" style="cursor: pointer; display: inline-flex; align-items: center; gap: 6px; font-weight: 600;">
+                🔒 Disable Seat Selection
+              </button>
+              <button class="secondary-button" data-section="event" style="cursor: pointer; display: inline-flex; align-items: center; gap: 6px;">
+                ✏️ Edit Event Details
+              </button>
+            </div>
+          </div>
+
+          <!-- MAIN STATS CARDS -->
           <div class="stats-grid">
             <article class="stat-card">
-              <p>Total bookings</p>
-              <h2 id="totalBookings">—</h2>
-              <small>Confirmed booking records</small>
+              <p>Total capacity</p>
+              <h2 id="totalHallSeats">941</h2>
+              <small>Auditorium booking capacity</small>
             </article>
             <article class="stat-card">
               <p>Seats booked</p>
               <h2 id="totalSeats">—</h2>
-              <small>From existing booking data</small>
+              <small>Confirmed booked seats</small>
+            </article>
+            <article class="stat-card">
+              <p>Blocked seats</p>
+              <h2 id="blockedSeats">85</h2>
+              <small>VIP rows A, B, C reserved</small>
             </article>
             <article class="stat-card">
               <p>Available seats</p>
               <h2 id="availableSeats">—</h2>
-              <small>Based on current seat status</small>
+              <small>Open for public booking</small>
             </article>
             <article class="stat-card">
-              <p>Blocked seats</p>
-              <h2 id="blockedSeats">—</h2>
-              <small>Seats unavailable for booking</small>
+              <p>Total bookings</p>
+              <h2 id="totalBookings">—</h2>
+              <small>Confirmed booking orders</small>
             </article>
             <article class="stat-card revenue-card">
               <p>Verified revenue</p>
@@ -126,11 +166,61 @@
             </article>
           </div>
 
+          <!-- STUDENT ENQUIRIES OVERVIEW BANNER -->
+          <div style="background: linear-gradient(135deg, #fff7ed, #ffedd5); border: 1px solid #fed7aa; border-radius: 14px; padding: 16px 20px; margin-top: 20px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 14px; box-shadow: 0 2px 8px rgba(234, 88, 12, 0.06);">
+            <div style="display: flex; align-items: center; gap: 14px;">
+              <div style="width: 44px; height: 44px; border-radius: 10px; background: #ea580c; color: white; display: flex; align-items: center; justify-content: center; font-size: 22px;">
+                🎓
+              </div>
+              <div>
+                <h3 style="margin: 0; font-size: 15px; color: #9a3412;">Student Admission Enquiries</h3>
+                <p id="overviewEnquiriesSummary" style="margin: 3px 0 0; font-size: 13px; color: #7c2d12;">
+                  Tracking leads across WhatsApp, Email, Website Form & Studio Walk-ins
+                </p>
+              </div>
+            </div>
+            <button class="secondary-button" data-section="enquiries" style="background: white; border: 1px solid #ea580c; color: #ea580c; font-weight: 600; padding: 8px 16px; border-radius: 8px; cursor: pointer;">
+              View All Enquiries ➔
+            </button>
+          </div>
+
+          <!-- OPTION 6: BRANCH-WISE TICKET LEADERBOARD -->
+          <section class="panel" style="margin-top: 24px; margin-bottom: 24px;">
+            <div class="panel-heading">
+              <div>
+                <div style="display: flex; align-items: center; gap: 8px;">
+                  <span style="font-size: 20px;">🏆</span>
+                  <h2>Branch-wise Ticket Leaderboard</h2>
+                </div>
+                <p class="muted">Live ticket sales and attendance distribution across all 5 Vidyalaya branches</p>
+              </div>
+              <span id="topBranchBadge" style="font-size: 12px; font-weight: 700; background: #fdf5e6; color: #b7791f; border: 1px solid #fbd38d; padding: 4px 12px; border-radius: 20px;">
+                🥇 Leading: Calculating…
+              </span>
+            </div>
+
+            <!-- 5 Branch Cards Grid -->
+            <div id="branchCardsGrid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 14px; margin-bottom: 20px;">
+              <!-- Populated dynamically by admin.js -->
+            </div>
+
+            <!-- Comparative Progress Bars -->
+            <div style="background: #faf9fd; border: 1px solid #ebdff5; border-radius: 12px; padding: 18px 20px;">
+              <h4 style="margin: 0 0 14px; font-size: 12.5px; text-transform: uppercase; letter-spacing: 0.5px; color: var(--purple-dark);">
+                📊 Relative Attendance Share
+              </h4>
+              <div id="branchBarsContainer" style="display: flex; flex-direction: column; gap: 12px;">
+                <!-- Populated dynamically by admin.js -->
+              </div>
+            </div>
+          </section>
+
+          <!-- RECENT BOOKINGS TABLE -->
           <section class="panel">
             <div class="panel-heading">
               <div>
                 <h2>Recent bookings</h2>
-                <p class="muted">Latest records from your booking system</p>
+                <p class="muted">Latest records with instant ticket sharing options</p>
               </div>
               <button class="text-button" data-section="bookings">
                 View all
@@ -143,14 +233,15 @@
                   <tr>
                     <th>Booking ID</th>
                     <th>Customer</th>
+                    <th>Branch</th>
                     <th>Seats</th>
                     <th>Amount</th>
-                    <th>Payment</th>
+                    <th>Actions (Resend)</th>
                   </tr>
                 </thead>
                 <tbody id="recentBookings">
                   <tr>
-                    <td colspan="5" class="empty-state">
+                    <td colspan="6" class="empty-state">
                       Waiting for backend connection.
                     </td>
                   </tr>
@@ -160,33 +251,62 @@
           </section>
         </section>
 
+        <!-- 2. BOOKINGS SECTION (WITH SEARCH & BRANCH FILTER) -->
         <section id="bookingsSection" hidden>
           <section class="panel">
             <div class="panel-heading">
               <div>
                 <h2>All bookings</h2>
-                <p class="muted">Customer and ticket information</p>
+                <p class="muted">Manage customer reservations, branch affiliations, and resend digital passes</p>
               </div>
-              <button id="bookingsRefresh" class="secondary-button">
-                Refresh
-              </button>
+              <div style="display: flex; gap: 10px; align-items: center; flex-wrap: wrap;">
+                <button id="bookingsRefresh" class="secondary-button">
+                  Refresh
+                </button>
+                <button id="clearAllBookingsBtn" style="background-color: #dc3545; color: white; border: none; padding: 8px 16px; border-radius: 6px; cursor: pointer; font-weight: bold; display: flex; align-items: center; gap: 6px;">
+                  🗑️ Clear All Bookings
+                </button>
+              </div>
             </div>
+
+            <!-- SEARCH AND BRANCH FILTER CONTROLS -->
+            <div style="display: flex; gap: 12px; margin-bottom: 16px; flex-wrap: wrap;">
+              <input
+                id="bookingSearchInput"
+                type="text"
+                placeholder="🔍 Search by name, phone, or booking ID..."
+                style="flex: 1; min-width: 240px; padding: 9px 14px; border: 1px solid #dcd3e6; border-radius: 8px; font-size: 13.5px;"
+              />
+              <select
+                id="bookingBranchFilter"
+                style="padding: 9px 14px; border: 1px solid #dcd3e6; border-radius: 8px; font-size: 13.5px; background: white; cursor: pointer;"
+              >
+                <option value="all">All Branches (5)</option>
+                <option value="Borivali (East)">Borivali (East)</option>
+                <option value="Dahisar (West)">Dahisar (West)</option>
+                <option value="Dahisar (East)">Dahisar (East)</option>
+                <option value="Goregaon (West)">Goregaon (West)</option>
+                <option value="Nalasopara">Nalasopara</option>
+              </select>
+            </div>
+
             <div class="table-wrapper">
               <table>
                 <thead>
                   <tr>
                     <th>Booking ID</th>
                     <th>Customer</th>
+                    <th>Branch</th>
                     <th>Email / Phone</th>
                     <th>Seats</th>
                     <th>Amount</th>
                     <th>Payment</th>
-                    <th>Date / Time</th>
+                    <th>Actions (Resend Pass)</th>
                   </tr>
                 </thead>
                 <tbody id="allBookings">
                   <tr>
-                    <td colspan="7" class="empty-state">
+                    <td colspan="8" class="empty-state">
                       Booking data will appear after API integration.
                     </td>
                   </tr>
@@ -196,33 +316,398 @@
           </section>
         </section>
 
+        <!-- 3. SEATS SECTION -->
         <section id="seatsSection" hidden>
           <section class="panel">
             <div class="panel-heading">
               <div>
-                <h2>Seat management</h2>
-                <p class="muted">Existing event seat status</p>
+                <h2>Auditorium seat map</h2>
+                <p class="muted">Live view of hall seats across Balcony, Middle, and Stalls tiers</p>
               </div>
-              <button id="seatsRefresh" class="secondary-button">
-                Refresh
-              </button>
+              <div style="display: flex; gap: 10px; align-items: center; flex-wrap: wrap;">
+                <button id="seatsToggleBookingBtn" class="secondary-button" style="cursor: pointer; display: inline-flex; align-items: center; gap: 6px; font-weight: 600;">
+                  🔒 Disable Seat Selection
+                </button>
+                <select id="seatFilter" style="padding: 7px 12px; border-radius: 8px; border: 1px solid var(--border); font-size: 13px; background: white; cursor: pointer;">
+                  <option value="all">All Seats (941)</option>
+                  <option value="booked">Booked Only</option>
+                  <option value="blocked">Blocked (VIP Rows A, B, C)</option>
+                  <option value="available">Available Only</option>
+                </select>
+                <button id="seatsRefresh" class="secondary-button">
+                  Refresh
+                </button>
+              </div>
             </div>
 
-            <div class="seat-legend">
-              <span><i class="dot available"></i> Available</span>
-              <span><i class="dot booked"></i> Booked</span>
-              <span><i class="dot blocked"></i> Blocked</span>
+            <div class="seat-legend" style="display: flex; gap: 20px; align-items: center; flex-wrap: wrap; margin-bottom: 18px;">
+              <span><i class="dot available"></i> Available (<strong id="seatSummaryAvailable">—</strong>)</span>
+              <span><i class="dot booked"></i> Booked (<strong id="seatSummaryBooked">—</strong>)</span>
+              <span><i class="dot blocked"></i> Blocked (<strong id="seatSummaryBlocked">85</strong>)</span>
+              <span style="margin-left: auto; color: var(--muted); font-size: 12px;">Total Capacity: <strong>941</strong></span>
             </div>
 
             <div id="seatGrid" class="seat-grid">
               Seat information will appear after API integration.
             </div>
             <p class="muted seat-note">
-              Seat blocking controls will be enabled after the existing
-              backend's rules and seat-hold logic are inspected.
+              Rows A, B, and C (85 seats) are permanently reserved for VIP & organizers. Real-time booked seats sync directly with confirmed transactions.
             </p>
           </section>
         </section>
+
+        <!-- 4. EVENT DETAILS & SEAT ACCESS CONTROLLER SECTION -->
+        <section id="eventSection" hidden>
+          <section class="panel">
+            <div class="panel-heading">
+              <div>
+                <h2>Event Details & Booking Controls</h2>
+                <p class="muted">Change the event date, time, venue, and toggle public access to the hall layout.</p>
+              </div>
+              <div style="display: flex; gap: 10px; align-items: center; flex-wrap: wrap;">
+                <button id="resetEventBtn" type="button" class="secondary-button">
+                  ↺ Reset Defaults
+                </button>
+                <button id="saveEventBtn" type="button" class="primary-button" style="background: var(--purple, #7434db); color: white; border: none; padding: 9px 20px; font-weight: 600; border-radius: 8px; cursor: pointer; display: flex; align-items: center; gap: 6px;">
+                  💾 Save & Update Website
+                </button>
+              </div>
+            </div>
+
+            <div id="eventSaveNotice" class="notice" style="display: none; margin-bottom: 20px;"></div>
+
+            <!-- PUBLIC SEAT BOOKING STATUS CONTROLLER -->
+            <div style="background: #ffffff; border: 2px solid #ecdff5; border-radius: 12px; padding: 18px 20px; margin-bottom: 24px; box-shadow: 0 4px 12px rgba(116, 52, 219, 0.06);">
+              <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 14px;">
+                <div>
+                  <div style="display: flex; align-items: center; gap: 10px;">
+                    <span id="bookingStatusBadge" style="font-size: 12px; font-weight: 700; text-transform: uppercase; padding: 5px 12px; border-radius: 20px; background: #eafaf1; color: #1e7e34; border: 1px solid #c3e6cb;">
+                      🟢 Seat Selection: OPEN (Active)
+                    </span>
+                    <strong style="font-size: 15px; color: #222;">Public Seat Selection & Booking Access</strong>
+                  </div>
+                  <p style="margin: 6px 0 0; color: var(--muted, #666); font-size: 13px;">
+                    When disabled, the "Select Seat" button is locked on the website, and visitors cannot access the hall layout to select or reserve seats.
+                  </p>
+                </div>
+
+                <div style="display: flex; gap: 10px; align-items: center;">
+                  <button id="toggleBookingStatusBtn" type="button" style="padding: 10px 18px; font-size: 13.5px; font-weight: 700; border-radius: 8px; cursor: pointer; border: none; display: inline-flex; align-items: center; gap: 8px; background: #dc3545; color: white;">
+                    🔒 Disable Seat Selection
+                  </button>
+                </div>
+              </div>
+
+              <!-- NOTICE SHOWN WHEN SEAT BOOKING IS PAUSED -->
+              <div id="disabledMsgContainer" style="margin-top: 14px; padding-top: 14px; border-top: 1px dashed #e2d9eb; display: none;">
+                <label for="evtDisabledMsg" style="font-size: 12.5px; font-weight: 600; display: block; margin-bottom: 5px; color: #444;">
+                  Notice Message Shown to Visitors When Paused
+                </label>
+                <input id="evtDisabledMsg" type="text" style="width: 100%; padding: 8px 12px; border: 1px solid #dcd3e6; border-radius: 6px; font-size: 13px;" value="Seat booking is temporarily paused by the administrator. Please check back later!" />
+              </div>
+            </div>
+
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 24px;">
+              <!-- FORM INPUTS -->
+              <div style="display: flex; flex-direction: column; gap: 16px;">
+                <div>
+                  <label for="evtName" style="font-size: 13px; font-weight: 600; display: block; margin-bottom: 6px;">Production / Event Title</label>
+                  <input id="evtName" type="text" style="width: 100%; padding: 10px 12px; border: 1px solid #dcd3e6; border-radius: 8px; font-size: 14px;" placeholder="e.g. Nrityarang 2026" />
+                </div>
+
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+                  <div>
+                    <label for="evtDate" style="font-size: 13px; font-weight: 600; display: block; margin-bottom: 6px;">Event Date</label>
+                    <input id="evtDate" type="text" style="width: 100%; padding: 10px 12px; border: 1px solid #dcd3e6; border-radius: 8px; font-size: 14px;" placeholder="e.g. September 6, 2026" />
+                  </div>
+                  <div>
+                    <label for="evtTime" style="font-size: 13px; font-weight: 600; display: block; margin-bottom: 6px;">Event Time</label>
+                    <input id="evtTime" type="text" style="width: 100%; padding: 10px 12px; border: 1px solid #dcd3e6; border-radius: 8px; font-size: 14px;" placeholder="e.g. 7:00 PM" />
+                  </div>
+                </div>
+
+                <div>
+                  <label for="evtDateTimeDisplay" style="font-size: 13px; font-weight: 600; display: block; margin-bottom: 6px;">
+                    Date & Time (Website Display Format)
+                    <small style="color: var(--muted, #666); font-weight: normal; margin-left: 6px;">Shown on event page</small>
+                  </label>
+                  <input id="evtDateTimeDisplay" type="text" style="width: 100%; padding: 10px 12px; border: 1px solid #dcd3e6; border-radius: 8px; font-size: 14px;" placeholder="e.g. September,6 2026, 7pm" />
+                </div>
+
+                <div>
+                  <label for="evtVenue" style="font-size: 13px; font-weight: 600; display: block; margin-bottom: 6px;">Venue / Auditorium (Full Display)</label>
+                  <input id="evtVenue" type="text" style="width: 100%; padding: 10px 12px; border: 1px solid #dcd3e6; border-radius: 8px; font-size: 14px;" placeholder="e.g. Prabodhankar Thackeray auditorium, Borivali(west), Mumbai" />
+                </div>
+
+                <div>
+                  <label for="evtVenueShort" style="font-size: 13px; font-weight: 600; display: block; margin-bottom: 6px;">Auditorium Short Name</label>
+                  <input id="evtVenueShort" type="text" style="width: 100%; padding: 10px 12px; border: 1px solid #dcd3e6; border-radius: 8px; font-size: 14px;" placeholder="e.g. Prabodhankar Thackeray Auditorium" />
+                </div>
+
+                <div>
+                  <label for="evtVenueAddress" style="font-size: 13px; font-weight: 600; display: block; margin-bottom: 6px;">Full Address & Landmark</label>
+                  <textarea id="evtVenueAddress" rows="2" style="width: 100%; padding: 10px 12px; border: 1px solid #dcd3e6; border-radius: 8px; font-size: 14px; resize: vertical;" placeholder="Chamunda Circle, Sodawala Lane, Borivali (West), Mumbai..."></textarea>
+                </div>
+
+                <div>
+                  <label for="evtPriceInfo" style="font-size: 13px; font-weight: 600; display: block; margin-bottom: 6px;">Ticket Price Notice</label>
+                  <input id="evtPriceInfo" type="text" style="width: 100%; padding: 10px 12px; border: 1px solid #dcd3e6; border-radius: 8px; font-size: 14px;" placeholder="e.g. (starts from 250rs)" />
+                </div>
+
+                <div>
+                  <label for="evtTagline" style="font-size: 13px; font-weight: 600; display: block; margin-bottom: 6px;">Event Description / Tagline</label>
+                  <textarea id="evtTagline" rows="3" style="width: 100%; padding: 10px 12px; border: 1px solid #dcd3e6; border-radius: 8px; font-size: 14px; resize: vertical;" placeholder="Experience the grace and elegance of Kathak..."></textarea>
+                </div>
+              </div>
+
+              <!-- LIVE PREVIEW CARD (MATCHES FRONTEND SCREENSHOT!) -->
+              <div>
+                <p style="font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; color: var(--muted, #666); margin-bottom: 10px;">
+                  👁️ Live Website Preview
+                </p>
+
+                <div style="background: #2a080e; color: #fdfbf7; border-radius: 14px; padding: 24px; border: 1px solid rgba(197, 161, 91, 0.4); box-shadow: 0 8px 24px rgba(0,0,0,0.18);">
+                  <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px;">
+                    <span style="font-size: 10px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: #c5a15b; background: rgba(197, 161, 91, 0.15); padding: 4px 10px; border-radius: 20px; border: 1px solid rgba(197, 161, 91, 0.3);">
+                      FEATURED ANNUAL PRODUCTION
+                    </span>
+                    <small style="color: #c5a15b; font-size: 11px;">Preview</small>
+                  </div>
+
+                  <h3 id="prevTitle" style="font-family: Georgia, serif; font-size: 24px; color: #fff; margin: 0 0 14px;">
+                    Nrityarang 2026
+                  </h3>
+
+                  <p id="prevTagline" style="font-size: 13.5px; line-height: 1.6; color: #e7ded3; font-style: italic; margin-bottom: 20px; border-left: 3px solid #c5a15b; padding-left: 12px;">
+                    Experience the grace and elegance of Kathak in a mesmerizing evening of rhythm, storytelling, and timeless tradition......
+                  </p>
+
+                  <div style="background: rgba(0,0,0,0.3); border-radius: 10px; padding: 14px 16px; display: flex; flex-direction: column; gap: 12px; border: 1px solid rgba(255,255,255,0.08);">
+                    <div style="display: flex; align-items: center; gap: 12px; font-size: 14px;">
+                      <span style="font-size: 16px;">📅</span>
+                      <strong id="prevDateTime" style="color: #ffd885; font-weight: 600;">September,6 2026, 7pm</strong>
+                    </div>
+
+                    <div style="display: flex; align-items: flex-start; gap: 12px; font-size: 13.5px;">
+                      <span style="font-size: 16px;">📍</span>
+                      <span id="prevVenue" style="color: #f1eae2;">Prabodhankar Thackeray auditorium, Borivali(west), Mumbai</span>
+                    </div>
+
+                    <div style="display: flex; align-items: center; gap: 12px; font-size: 13.5px;">
+                      <span style="font-size: 16px;">₹</span>
+                      <span id="prevPrice" style="color: #ffd885; font-weight: 600;">(starts from 250rs)</span>
+                    </div>
+                  </div>
+
+                  <!-- LIVE PREVIEW OF "SELECT SEAT" BUTTON STATE -->
+                  <div id="prevSeatActionWrap" style="margin-top: 18px;">
+                    <div id="prevSelectSeatBtn" style="background: linear-gradient(135deg, #c5a15b 0%, #dfc581 100%); color: #3b0d13; padding: 13px 18px; border-radius: 10px; font-weight: 700; text-align: center; display: flex; align-items: center; justify-content: center; gap: 8px;">
+                      <span>🪑</span> Select Seat
+                    </div>
+                    <span id="prevBookingPausedPill" style="display: none; text-align: center; font-size: 11px; font-weight: 600; color: #ffc4c4; background: rgba(195, 68, 82, 0.25); border: 1px solid rgba(195, 68, 82, 0.45); padding: 6px 10px; border-radius: 6px; margin-top: 6px;">
+                      🔒 Seat selection is currently disabled by administrator
+                    </span>
+                  </div>
+
+                  <div style="margin-top: 18px; padding-top: 14px; border-top: 1px dashed rgba(255,255,255,0.15); font-size: 12px; color: #c5a15b;">
+                    ✓ Updates reflect immediately on the Events page, home showcase, and booking passes.
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+        </section>
+
+        <!-- 5. STUDENT ENQUIRIES SECTION (NEW) -->
+        <section id="enquiriesSection" hidden>
+          <div class="panel">
+            <div class="panel-heading">
+              <div>
+                <h2>Student Admission Enquiries</h2>
+                <p class="muted">Prospective students and parents inquiring about admissions, batches, and fees</p>
+              </div>
+              <div style="display: flex; gap: 10px; align-items: center; flex-wrap: wrap;">
+                <button id="enquiriesRefresh" class="secondary-button">
+                  ↻ Refresh
+                </button>
+                <button id="addEnquiryBtn" class="primary-button" style="background: var(--purple, #7434db); color: white; border: none; padding: 9px 18px; border-radius: 8px; font-weight: 600; cursor: pointer; display: flex; align-items: center; gap: 6px;">
+                  ➕ Add Walk-in / Call
+                </button>
+              </div>
+            </div>
+
+            <!-- ENQUIRIES SUMMARY STATS -->
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 14px; margin-bottom: 20px;">
+              <article class="stat-card" style="padding: 16px;">
+                <p style="font-size: 12px; color: var(--muted); margin: 0 0 4px;">Total Enquiries</p>
+                <h2 id="totalEnquiriesCount" style="margin: 0; font-size: 24px; color: #1a202c;">—</h2>
+                <small style="color: var(--muted);">All records</small>
+              </article>
+              <article class="stat-card" style="padding: 16px;">
+                <p style="font-size: 12px; color: #1e7e34; margin: 0 0 4px;">💬 via WhatsApp</p>
+                <h2 id="waEnquiriesCount" style="margin: 0; font-size: 24px; color: #1e7e34;">—</h2>
+                <small style="color: var(--muted);">Direct chat inquiries</small>
+              </article>
+              <article class="stat-card" style="padding: 16px;">
+                <p style="font-size: 12px; color: #2b6cb0; margin: 0 0 4px;">✉️ via Email</p>
+                <h2 id="emailEnquiriesCount" style="margin: 0; font-size: 24px; color: #2b6cb0;">—</h2>
+                <small style="color: var(--muted);">Email inquiries</small>
+              </article>
+              <article class="stat-card" style="padding: 16px;">
+                <p style="font-size: 12px; color: var(--purple, #7434db); margin: 0 0 4px;">🌐 Website Form</p>
+                <h2 id="webEnquiriesCount" style="margin: 0; font-size: 24px; color: var(--purple, #7434db);">—</h2>
+                <small style="color: var(--muted);">Online form leads</small>
+              </article>
+              <article class="stat-card" style="padding: 16px;">
+                <p style="font-size: 12px; color: #c05621; margin: 0 0 4px;">⏳ New / Pending</p>
+                <h2 id="pendingEnquiriesCount" style="margin: 0; font-size: 24px; color: #c05621;">—</h2>
+                <small style="color: var(--muted);">Requires follow-up</small>
+              </article>
+            </div>
+
+            <!-- ENQUIRY FILTERS -->
+            <div style="display: flex; gap: 12px; margin-bottom: 18px; flex-wrap: wrap;">
+              <input
+                id="enquirySearchInput"
+                type="text"
+                placeholder="🔍 Search by student name, phone, or email..."
+                style="flex: 1; min-width: 240px; padding: 9px 14px; border: 1px solid #dcd3e6; border-radius: 8px; font-size: 13.5px;"
+              />
+              <select
+                id="enquiryModeFilter"
+                style="padding: 9px 14px; border: 1px solid #dcd3e6; border-radius: 8px; font-size: 13.5px; background: white; cursor: pointer;"
+              >
+                <option value="all">All Modes (WhatsApp, Email, Web)</option>
+                <option value="WhatsApp">💬 WhatsApp Only</option>
+                <option value="Email">✉️ Email Only</option>
+                <option value="Website Form">🌐 Website Form Only</option>
+              </select>
+              <select
+                id="enquiryBranchFilter"
+                style="padding: 9px 14px; border: 1px solid #dcd3e6; border-radius: 8px; font-size: 13.5px; background: white; cursor: pointer;"
+              >
+                <option value="all">All Branches (5)</option>
+                <option value="Borivali (East)">Borivali (East)</option>
+                <option value="Dahisar (West)">Dahisar (West)</option>
+                <option value="Dahisar (East)">Dahisar (East)</option>
+                <option value="Goregaon (West)">Goregaon (West)</option>
+                <option value="Nalasopara">Nalasopara</option>
+              </select>
+              <select
+                id="enquiryStatusFilter"
+                style="padding: 9px 14px; border: 1px solid #dcd3e6; border-radius: 8px; font-size: 13.5px; background: white; cursor: pointer;"
+              >
+                <option value="all">All Statuses</option>
+                <option value="New">New / Uncontacted</option>
+                <option value="Contacted">Contacted</option>
+                <option value="Follow-up">Follow-up</option>
+                <option value="Enrolled">Enrolled ✓</option>
+              </select>
+            </div>
+
+            <!-- ENQUIRIES TABLE -->
+            <div class="table-wrapper">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Student Name</th>
+                    <th>Phone Number</th>
+                    <th>Email Address</th>
+                    <th>Enquiry Mode</th>
+                    <th>Preferred Branch</th>
+                    <th>Course / Level</th>
+                    <th>Date & Time</th>
+                    <th>Status</th>
+                    <th>Quick Contact</th>
+                  </tr>
+                </thead>
+                <tbody id="enquiriesTableBody">
+                  <tr>
+                    <td colspan="9" class="empty-state">
+                      Loading student enquiries…
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <!-- ADD MANUAL ENQUIRY MODAL (POPUP) -->
+        <div id="addEnquiryModal" style="display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.55); z-index: 1000; align-items: center; justify-content: center; padding: 20px;">
+          <div style="background: white; border-radius: 16px; max-width: 520px; width: 100%; padding: 28px; box-shadow: 0 20px 60px rgba(0,0,0,0.25); max-height: 90vh; overflow-y: auto;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 18px;">
+              <h3 style="margin: 0; font-size: 18px; color: var(--purple-dark);">➕ Add Student Admission Enquiry</h3>
+              <button id="closeEnquiryModalBtn" type="button" style="border: none; background: transparent; font-size: 24px; cursor: pointer; color: var(--muted);">&times;</button>
+            </div>
+
+            <form id="manualEnquiryForm" style="display: flex; flex-direction: column; gap: 14px;">
+              <div>
+                <label style="display: block; font-size: 12.5px; font-weight: 600; margin-bottom: 4px;">Student Full Name *</label>
+                <input id="mEnqName" type="text" required placeholder="e.g. Aarohi Chitnis" style="width: 100%; padding: 9px 12px; border: 1px solid #dcd3e6; border-radius: 8px;" />
+              </div>
+
+              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+                <div>
+                  <label style="display: block; font-size: 12.5px; font-weight: 600; margin-bottom: 4px;">Phone Number *</label>
+                  <input id="mEnqPhone" type="tel" required placeholder="e.g. 9820123456" style="width: 100%; padding: 9px 12px; border: 1px solid #dcd3e6; border-radius: 8px;" />
+                </div>
+                <div>
+                  <label style="display: block; font-size: 12.5px; font-weight: 600; margin-bottom: 4px;">Student Age</label>
+                  <input id="mEnqAge" type="number" placeholder="e.g. 8" style="width: 100%; padding: 9px 12px; border: 1px solid #dcd3e6; border-radius: 8px;" />
+                </div>
+              </div>
+
+              <div>
+                <label style="display: block; font-size: 12.5px; font-weight: 600; margin-bottom: 4px;">Email Address</label>
+                <input id="mEnqEmail" type="email" placeholder="e.g. parent@example.com" style="width: 100%; padding: 9px 12px; border: 1px solid #dcd3e6; border-radius: 8px;" />
+              </div>
+
+              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+                <div>
+                  <label style="display: block; font-size: 12.5px; font-weight: 600; margin-bottom: 4px;">Enquiry Mode *</label>
+                  <select id="mEnqMode" style="width: 100%; padding: 9px 12px; border: 1px solid #dcd3e6; border-radius: 8px; background: white;">
+                    <option value="WhatsApp">💬 WhatsApp</option>
+                    <option value="Email">✉️ Email</option>
+                    <option value="Website Form">🌐 Website Form</option>
+                    <option value="Phone Call">📞 Direct Call</option>
+                    <option value="Walk-in">🏛️ Studio Walk-in</option>
+                  </select>
+                </div>
+                <div>
+                  <label style="display: block; font-size: 12.5px; font-weight: 600; margin-bottom: 4px;">Preferred Branch *</label>
+                  <select id="mEnqBranch" style="width: 100%; padding: 9px 12px; border: 1px solid #dcd3e6; border-radius: 8px; background: white;">
+                    <option value="Borivali (East)">Borivali (East)</option>
+                    <option value="Dahisar (West)">Dahisar (West)</option>
+                    <option value="Dahisar (East)">Dahisar (East)</option>
+                    <option value="Goregaon (West)">Goregaon (West)</option>
+                    <option value="Nalasopara">Nalasopara</option>
+                  </select>
+                </div>
+              </div>
+
+              <div>
+                <label style="display: block; font-size: 12.5px; font-weight: 600; margin-bottom: 4px;">Course / Level</label>
+                <select id="mEnqLevel" style="width: 100%; padding: 9px 12px; border: 1px solid #dcd3e6; border-radius: 8px; background: white;">
+                  <option value="Beginner (New Admission)">Beginner (New Admission)</option>
+                  <option value="Prarambhik & Praveshika">Prarambhik & Praveshika</option>
+                  <option value="Madhyama Pratham & Purna">Madhyama Pratham & Purna</option>
+                  <option value="Visharad Level">Visharad Level</option>
+                </select>
+              </div>
+
+              <div>
+                <label style="display: block; font-size: 12.5px; font-weight: 600; margin-bottom: 4px;">Notes / Questions</label>
+                <textarea id="mEnqNotes" rows="2" placeholder="e.g. Inquired about weekend morning timings" style="width: 100%; padding: 9px 12px; border: 1px solid #dcd3e6; border-radius: 8px;"></textarea>
+              </div>
+
+              <div style="display: flex; justify-content: flex-end; gap: 10px; margin-top: 10px;">
+                <button id="cancelManualEnqBtn" type="button" class="secondary-button">Cancel</button>
+                <button type="submit" class="primary-button" style="background: var(--purple); color: white; border: none; padding: 10px 20px; border-radius: 8px; font-weight: 600; cursor: pointer;">Save Enquiry</button>
+              </div>
+            </form>
+          </div>
+        </div>
 
         <footer>Nrityarang Event Booking · Admin Console</footer>
       </div>
